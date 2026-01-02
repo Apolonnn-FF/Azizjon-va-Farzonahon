@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение: Азизҷон & Фарзонахон</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Bad+Script&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #2b0202;
+            --accent: #d4af37;
+            --gold-linear: linear-gradient(135deg, #a67c00 0%, #f9e17d 50%, #a67c00 100%);
+            --paper: #f9f6f0;
+            --seal: #800020;
+            --envelope-dark: #e8e2d1;
+            --maroon-overlay: rgba(60, 2, 2, 0.75);
+            --photo-url: url('photo_2026-01-02 22.17.28.jpeg');
+            --first-font: 'Great Vibes', cursive;
+            --name-font: 'Bad Script', cursive;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background: var(--bg-dark);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        #envelope-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #4a0404 0%, #1a0101 100%);
+            z-index: 100;
+            transition: opacity 0.8s ease;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(0.5deg);
+            }
+        }
+
+        .envelope {
+            position: relative;
+            width: 380px;
+            height: 250px;
+            background: var(--paper);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1200px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        #flap {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
+            border-top: 140px solid #ede7d9;
+            transform-origin: top;
+            z-index: 5;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .envelope-paper {
+            position: absolute;
+            top: 10px;
+            left: 25px;
+            right: 25px;
+            height: 210px;
+            background: var(--photo-url) center/cover no-repeat;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(0);
+            transition: opacity 0.4s ease 0.8s, transform 1s cubic-bezier(0.34, 1.1, 0.64, 1) 1.2s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .side {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-dark);
+            z-index: 4;
+            clip-path: polygon(0% 0%, 50% 45%, 0% 100%);
+        }
+
+        .side-right {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-dark);
+            z-index: 4;
+            clip-path: polygon(100% 0%, 50% 45%, 100% 100%);
+        }
+
+        .bottom-flap {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: #e0d8c3;
+            z-index: 4;
+            clip-path: polygon(0% 100%, 50% 45%, 100% 100%);
+        }
+
+        .seal-container {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: transform 0.8s ease, opacity 0.3s ease 0.4s;
+            pointer-events: none;
+        }
+
+        .seal {
+            width: 70px;
+            height: 70px;
+            background: var(--seal);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f1ebd9;
+            font-family: 'Playfair Display';
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .opened.envelope,
+        .opened .hint {
+            animation: none !important;
+        }
+
+        .opened #flap {
+            transform: rotateX(180deg);
+        }
+
+        .opened .seal-container {
+            transform: translate(-50%, -200px) scale(0);
+            opacity: 0;
+        }
+
+        .opened .envelope-paper {
+            opacity: 1;
+            transform: translateY(-180px);
+        }
+
+        .hint {
+            position: absolute;
+            bottom: -60px;
+            width: 100%;
+            text-align: center;
+            color: var(--accent);
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        #invitation-content {
+            display: none;
+            opacity: 0;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 1.2s ease;
+            background: var(--bg-dark);
+        }
+
+        .show-invitation {
+            display: flex !important;
+            opacity: 1 !important;
+        }
+
+        .letter-sheet {
+            background: var(--photo-url) center/cover no-repeat;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            color: #fff;
+            box-shadow: 0 0 50px #000;
+        }
+
+        .letter-sheet::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, var(--maroon-overlay) 0%, #2b0202 100%);
+            z-index: 1;
+        }
+
+        .letter-sheet-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        /* --- ГЛАВНЫЙ ЭКРАН (ОБНОВЛЕННЫЙ) --- */
+        .hero-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            /* Распределяет: верх, центр, низ */
+            padding: 60px 20px 40px;
+            /* Отступы для баланса */
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: var(--first-font);
+            font-size: 3.5rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .names-center {
+            flex-grow: 1;
+            /* Занимает всё пространство между заголовком и подсказкой */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Центрирует имена по вертикали в доступной области */
+        }
+
+        .names {
+            font-family: var(--name-font);
+            font-size: clamp(2.8rem, 10vw, 4.5rem);
+            background: var(--gold-linear);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .and-sign {
+            font-family: var(--first-font);
+            font-size: 2.8rem;
+            margin: 5px 0;
+            display: block;
+            color: var(--accent);
+        }
+
+        .scroll-hint {
+            text-align: center;
+            animation: bounce 2s infinite;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .scroll-hint span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .scroll-hint svg {
+            width: 30px;
+            fill: var(--accent);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(10px);
+            }
+
+            60% {
+                transform: translateY(5px);
+            }
+        }
+
+        /* --- ОСТАЛЬНЫЕ БЛОКИ --- */
+        .details-screen {
+            padding: 80px 30px;
+            text-align: center;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--accent);
+            margin: 40px auto;
+            opacity: 0.5;
+        }
+
+        .main-text {
+            line-height: 2;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+            display: block;
+            margin: 10px 0;
+            font-size: 1.6rem;
+            font-family: 'Playfair Display';
+        }
+
+        .map-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 45px 0;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .timer-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 35px 0;
+        }
+
+        .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent);
+            display: block;
+        }
+
+        .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .copyright {
+            font-size: 9px;
+            opacity: 0.3;
+            padding: 60px 0 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="envelope-wrapper">
+        <div class="envelope" id="main-envelope" onclick="openEnvelope()">
+            <div id="flap"></div>
+            <div class="envelope-paper"></div>
+            <div class="side"></div>
+            <div class="side-right"></div>
+            <div class="bottom-flap"></div>
+            <div class="seal-container">
+                <div class="seal">A & F</div>
+            </div>
+            <div class="hint">Нажмите, чтобы открыть</div>
+        </div>
+    </div>
+
+    <div id="invitation-content">
+        <div class="letter-sheet">
+            <div class="letter-sheet-content">
+
+                <section class="hero-screen">
+                    <div class="hero-title">Приглашение</div>
+
+                    <div class="names-center">
+                        <div class="names">Азизҷон</div>
+                        <span class="and-sign">&</span>
+                        <div class="names">Фарзонахон</div>
+                    </div>
+
+                    <div class="scroll-hint">
+                        <span>Листайте вниз</span>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                    </div>
+                </section>
+
+                <section class="details-screen">
+                    <div class="main-text">
+                        С огромной радостью и трепетом мы приглашаем вас разделить с нами самый счастливый день в нашей
+                        жизни — день нашего бракосочетания!
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="main-text">
+                        Великое торжество состоится
+                        <span class="highlight">24 января 2026 года</span>
+                        в <span class="highlight">18:00</span>
+                        <span style="font-size: 0.85rem; opacity: 0.7;">(по московскому времени)</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="main-text">
+                        Место встречи — сказочный дворец бракосочетаний <br>
+                        <span class="highlight" style="margin-top: 15px;">«Император холл»</span>
+                        <span style="font-size: 0.9rem; opacity: 0.7; display: block; margin-top: 5px;">Москва,
+                            Можайское ш., 17/1</span>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2247.346513364998!2d37.4239843!3d55.7176918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b549303102c46f%3A0x8e8731307b22d64d!2z0JzQvtC20LDQudGB0LrQvtC1INGILiwgMTcvMSwg0JzQvtGB0LrQstCwLCAxMjE0NzE!5e0!3m2!1sru!2sru!4v1700000000000!5m2!1sru!2sru"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+
+                    <div class="main-text" style="font-style: italic; opacity: 0.9;">
+                        Ваше присутствие сделает наш праздник <br> по-настоящему незабываемым.
+                    </div>
+
+                    <div style="margin-top: 80px;">
+                        <p
+                            style="font-family: var(--first-font); font-size: 2.2rem; color: var(--accent); margin-bottom: 10px;">
+                            До торжества осталось</p>
+                        <div class="timer-container">
+                            <div class="unit"><span class="num" id="days">00</span><span class="label">дней</span></div>
+                            <div class="unit"><span class="num" id="hours">00</span><span class="label">часов</span>
+                            </div>
+                            <div class="unit"><span class="num" id="minutes">00</span><span class="label">минут</span>
+                            </div>
+                            <div class="unit"><span class="num" id="seconds">00</span><span class="label">секунд</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="copyright">
+                        собственная разработка масрурҷона
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const env = document.getElementById('main-envelope');
+            const wrapper = document.getElementById('envelope-wrapper');
+            const content = document.getElementById('invitation-content');
+            const flap = document.getElementById('flap');
+
+            env.classList.add('opened');
+
+            setTimeout(() => { flap.style.zIndex = "1"; }, 600);
+
+            setTimeout(() => {
+                wrapper.style.opacity = '0';
+                content.classList.add('show-invitation');
+                setTimeout(() => {
+                    wrapper.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 800);
+            }, 2800);
+        }
+
+        function updateTimer() {
+            const target = new Date("Jan 24, 2026 18:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                document.getElementById("minutes").innerText = Math.floor((diff / 1000 / 60) % 60);
+                document.getElementById("seconds").innerText = Math.floor((diff / 1000) % 60);
+            }
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+
+</html>
