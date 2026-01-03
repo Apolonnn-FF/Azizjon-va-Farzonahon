@@ -17,6 +17,7 @@
             --seal: #800020;
             --envelope-dark: #e8e2d1;
             --maroon-overlay: rgba(60, 2, 2, 0.75);
+            /* Замените ссылку ниже на реальное фото, если нужно */
             --photo-url: url('photo_2026-01-02 22.17.28.jpeg');
             --first-font: 'Great Vibes', cursive;
             --name-font: 'Bad Script', cursive;
@@ -227,19 +228,15 @@
             width: 100%;
         }
 
-        /* --- ГЛАВНЫЙ ЭКРАН (ОБНОВЛЕННЫЙ) --- */
         .hero-screen {
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            /* Распределяет: верх, центр, низ */
             padding: 60px 20px 40px;
-            /* Отступы для баланса */
             text-align: center;
             box-sizing: border-box;
-            position: relative;
         }
 
         .hero-title {
@@ -251,11 +248,9 @@
 
         .names-center {
             flex-grow: 1;
-            /* Занимает всё пространство между заголовком и подсказкой */
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /* Центрирует имена по вертикали в доступной области */
         }
 
         .names {
@@ -271,7 +266,6 @@
             font-family: var(--first-font);
             font-size: 2.8rem;
             margin: 5px 0;
-            display: block;
             color: var(--accent);
         }
 
@@ -315,7 +309,6 @@
             }
         }
 
-        /* --- ОСТАЛЬНЫЕ БЛОКИ --- */
         .details-screen {
             padding: 80px 30px;
             text-align: center;
@@ -409,13 +402,11 @@
 
                 <section class="hero-screen">
                     <div class="hero-title">Приглашение</div>
-
                     <div class="names-center">
-                        <div class="names">Азизҷон</div>
+                        <div class="names">Азиз</div>
                         <span class="and-sign">&</span>
-                        <div class="names">Фарзонахон</div>
+                        <div class="names">Фарзона</div>
                     </div>
-
                     <div class="scroll-hint">
                         <span>Листайте вниз</span>
                         <svg viewBox="0 0 24 24">
@@ -429,30 +420,26 @@
                         С огромной радостью и трепетом мы приглашаем вас разделить с нами самый счастливый день в нашей
                         жизни — день нашего бракосочетания!
                     </div>
-
                     <div class="divider"></div>
-
                     <div class="main-text">
                         Великое торжество состоится
                         <span class="highlight">24 января 2026 года в 18:00</span>
                         <span style="font-size: 0.85rem; opacity: 0.7;">(по московскому времени)</span>
                     </div>
-
                     <div class="divider"></div>
-
                     <div class="main-text">
                         Место встречи — сказочный дворец бракосочетаний <br>
                         <span class="highlight" style="margin-top: 15px;">«Император холл»</span>
-                        <span style="font-size: 0.9rem; opacity: 0.7; display: block; margin-top: 5px;">Москва,
-                            Можайское ш., 17/1</span>
+                        <span style="font-size: 0.9rem; opacity: 0.7; display: block; margin-top: 5px;">
+                            Москва, Можайское ш., 17, стр. 1
+                        </span>
                     </div>
 
                     <div class="map-container">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2247.346513364998!2d37.4239843!3d55.7176918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b549303102c46f%3A0x8e8731307b22d64d!2z0JzQvtC20LDQudGB0LrQvtC1INGILiwgMTcvMSwg0JzQvtGB0LrQstCwLCAxMjE0NzE!5e0!3m2!1sru!2sru!4v1700000000000!5m2!1sru!2sru"
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            src="https://yandex.ru/map-widget/v1/?ll=37.409384%2C55.719655&mode=search&oid=1101905477&ol=biz&z=16"
+                            width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
                     </div>
-
 
                     <div class="rsvp-container" id="rsvpSection"
                         style="margin: 50px 0; padding: 30px 20px; background: rgba(255,255,255,0.05); border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); text-align: center;">
@@ -460,36 +447,24 @@
                             <h3
                                 style="font-family: 'Playfair Display'; color: var(--accent); font-size: 1.8rem; margin-bottom: 20px;">
                                 Подтвердите присутствие</h3>
-
                             <input type="text" id="guestName" placeholder="Введите ваше имя и фамилию"
                                 style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid var(--accent); background: transparent; color: white; box-sizing: border-box; outline: none;">
-
                             <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 25px;">
-                                <label style="cursor: pointer; color: white; font-size: 1rem;">
-                                    <input type="radio" name="attendance" value="Приду" checked
-                                        style="accent-color: var(--accent);"> Я приду
-                                </label>
-                                <label style="cursor: pointer; color: white; font-size: 1rem;">
-                                    <input type="radio" name="attendance" value="Не смогу"
-                                        style="accent-color: var(--accent);"> Не смогу
-                                </label>
+                                <label style="cursor: pointer; color: white;"><input type="radio" name="attendance"
+                                        value="Приду" checked> Я приду</label>
+                                <label style="cursor: pointer; color: white;"><input type="radio" name="attendance"
+                                        value="Не смогу"> Не смогу</label>
                             </div>
-
                             <button onclick="sendToTelegram()" id="submitBtn"
-                                style="background: var(--gold-linear); border: none; padding: 12px 30px; border-radius: 25px; color: #2b0202; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; width: 100%; max-width: 250px; transition: 0.3s;">
+                                style="background: var(--gold-linear); border: none; padding: 12px 30px; border-radius: 25px; color: #2b0202; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; width: 100%; max-width: 250px;">
                                 Отправить ответ
                             </button>
                         </div>
-
                         <div id="successMessage" style="display: none; padding: 20px;">
                             <p style="color: var(--accent); font-size: 1.5rem; font-family: 'Playfair Display';">
                                 Благодарим за ответ!</p>
                             <p style="color: white; font-size: 0.9rem; opacity: 0.8;">Мы очень ценим ваше внимание.</p>
                         </div>
-                    </div>
-
-                    <div class="main-text" style="font-style: italic; opacity: 0.9;">
-                        Ваше присутствие сделает наш праздник <br> по-настоящему незабываемым.
                     </div>
 
                     <div style="margin-top: 80px;">
@@ -507,9 +482,7 @@
                         </div>
                     </div>
 
-                    <div class="copyright">
-                        собственная разработка масрурҷона
-                    </div>
+                    <div class="copyright">собственная разработка масрурҷона</div>
                 </section>
             </div>
         </div>
@@ -523,9 +496,7 @@
             const flap = document.getElementById('flap');
 
             env.classList.add('opened');
-
             setTimeout(() => { flap.style.zIndex = "1"; }, 600);
-
             setTimeout(() => {
                 wrapper.style.opacity = '0';
                 content.classList.add('show-invitation');
@@ -550,9 +521,16 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
+        // ФУНКЦИЯ ОТПРАВКИ НЕСКОЛЬКИМ ЛЮДЯМ
         function sendToTelegram() {
-            const token = "7529950417:AAFTvdkJ9GAn0eATAd0fkylnBeqA8NSjBxM"; // Вставьте сюда токен
-            const chatId = "5822088369"; // Вставьте сюда ваш ID
+            const token = "7529950417:AAFTvdkJ9GAn0eATAd0fkylnBeqA8NSjBxM";
+
+            // ВПИШИТЕ СЮДА ID ВСЕХ ТРЕХ ПОЛУЧАТЕЛЕЙ
+            const chatIds = [
+                "5822088369",
+                "1958462380",
+                "5239239684"
+            ];
 
             const name = document.getElementById('guestName').value;
             const attendance = document.querySelector('input[name="attendance"]:checked').value;
@@ -563,28 +541,31 @@
                 return;
             }
 
-            // Блокируем кнопку, чтобы не нажимали много раз
             btn.disabled = true;
             btn.innerText = "Отправка...";
 
             const text = `🤵👰 *Новый ответ на приглашение!*\n\nИмя: ${name}\nСтатус: *${attendance}*`;
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
 
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
-                        // Прячем форму, показываем сообщение об успехе
+            // Создаем массив запросов для каждого ID
+            const requests = chatIds.map(id => {
+                const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${id}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
+                return fetch(url);
+            });
+
+            // Ждем завершения всех отправок
+            Promise.all(requests)
+                .then(responses => {
+                    // Если хотя бы одна отправка прошла (или все), считаем успехом
+                    if (responses.some(r => r.ok)) {
                         document.getElementById('formContainer').style.display = 'none';
                         document.getElementById('successMessage').style.display = 'block';
                     } else {
-                        alert("Ошибка при отправке. Попробуйте еще раз.");
-                        btn.disabled = false;
-                        btn.innerText = "Отправить ответ";
+                        throw new Error("Ошибка API");
                     }
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
-                    alert("Произошла ошибка соединения.");
+                    alert("Произошла ошибка при отправке.");
                     btn.disabled = false;
                     btn.innerText = "Отправить ответ";
                 });
